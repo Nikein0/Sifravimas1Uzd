@@ -7,20 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sifravimas1Uzd
 {
     public partial class Form1 : Form
     {
+        int choice;
+        string encryptedmessg;
+
+        public void setEncryptedMessg(string messg) { encryptedmessg = messg; }
+        public string getEncryptedMessg() { return encryptedmessg; }
+
         public Form1()
         {
             InitializeComponent();
-        }
-        private static int Mod(int a, int b)
-        {
-            return (a % b + b) % b;  //Handle negative results and range between alphabet
-        }
 
+        }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -29,8 +32,9 @@ namespace Sifravimas1Uzd
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool encipher = true;
-            if(!String.IsNullOrEmpty(CypherBox.Text) && !String.IsNullOrEmpty(KeyBox.Text)){
+            if (!String.IsNullOrEmpty(CypherBox.Text) && !String.IsNullOrEmpty(KeyBox.Text))
+            {
+                /*
                 string output = string.Empty;
                 int nonAlphaCharCount = 0;
                 for(int i = 0; i < CypherBox.Text.Length; ++i)
@@ -51,14 +55,64 @@ namespace Sifravimas1Uzd
                     {
                         output += CypherBox.Text[i];
                         ++nonAlphaCharCount;
+                    }*/
+
+                DES_Encryption dES_CBCEncryption = new DES_Encryption(CypherBox.Text, KeyBox.Text);
+                int bytesize = dES_CBCEncryption.byteSize(KeyBox.Text, Encoding.Default);
+                if (choice == 1)
+                {
+                    //DES_ECBencryption dESencryption = new DES_ECBencryption(CypherBox.Text, KeyBox.Text);
+                    //int bytesize = dESencryption.byteSize(KeyBox.Text, Encoding.Default);
+                    if (bytesize != 8)
+                    {
+                        cypherAnswer.Text = "Invalid key size";
+                    }
+                    else
+                    {
+                        string encryptedString = dES_CBCEncryption.Encrypt(choice);
+                        dES_CBCEncryption.EncryptedMessage = encryptedString;
+                        cypherAnswer.Text = encryptedString;
                     }
                 }
-                cypherAnswer.Text = output;
+                else if (choice == 2)
+                {
+                    //int bytesize = dESencryption.byteSize(KeyBox.Text, Encoding.Default);
+                    if (bytesize != 8)
+                    {
+                        cypherAnswer.Text = "Invalid key size";
+                    }
+                    else
+                    {
+                        string encryptedString = dES_CBCEncryption.Encrypt(choice);
+                        dES_CBCEncryption.EncryptedMessage = encryptedString;
+                        cypherAnswer.Text = encryptedString;
+                    }
+                }
+                else
+                {
+                    //int bytesize = dESencryption.byteSize(KeyBox.Text, Encoding.Default);
+                    if (bytesize != 8)
+                    {
+                        cypherAnswer.Text = "Invalid key size";
+                    }
+                    else
+                    {
+                        string encryptedString = dES_CBCEncryption.Encrypt(choice);
+                        dES_CBCEncryption.EncryptedMessage = encryptedString;
+                        setEncryptedMessg(encryptedString);
+                        cypherAnswer.Text = encryptedString;
+                    }
+                }
+
+                
 
             }
-            
-            
+
         }
+    
+            
+            
+        
 
         private void CypherBox_TextChanged(object sender, EventArgs e)
         {
@@ -67,37 +121,34 @@ namespace Sifravimas1Uzd
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool encipher = false;
-            if (!String.IsNullOrEmpty(DecypherBox.Text) && !String.IsNullOrEmpty(KeyBox.Text))
-            {
+            if (!String.IsNullOrEmpty(cypherAnswer.Text) && !String.IsNullOrEmpty(KeyBox.Text)) { 
+            /*
                 string output = string.Empty;
                 int nonAlphaCharCount = 0;
-                for (int i = 0; i < DecypherBox.Text.Length; ++i)
+                for (int i = 0; i < cypherAnswer.Text.Length; ++i)
                 {
-                    if (char.IsLetter(DecypherBox.Text[i]))
+                    if (char.IsLetter(cypherAnswer.Text[i]))
                     {
-                        bool cIsUpper = char.IsUpper(DecypherBox.Text[i]);
+                        bool cIsUpper = char.IsUpper(cypherAnswer.Text[i]);
                         char offset = cIsUpper ? 'A' : 'a';
 
                         int keyIndex = (i - nonAlphaCharCount) % KeyBox.Text.Length;
                         int k = (cIsUpper ? char.ToUpper(KeyBox.Text[keyIndex]) : char.ToLower(KeyBox.Text[keyIndex])) - offset;
 
                         k = encipher ? k : -k;
-                        char ch = (char)((Mod(((DecypherBox.Text[i] + k) - offset), 26)) + offset);
+                        char ch = (char)((Mod(((cypherAnswer.Text[i] + k) - offset), 26)) + offset);
 
                         output += ch;
 
                     }
                     else
                     {
-                        output += DecypherBox.Text[i];
+                        output += cypherAnswer.Text[i];
                         ++nonAlphaCharCount;
                     }
+            */
                 }
-                decypherAnswer.Text = output;
-
-            }
-
+                //decypherAnswer.Text = output;        
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -113,6 +164,32 @@ namespace Sifravimas1Uzd
         private void cypherAnswer_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            choice = 1;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            choice = 2;
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            choice = 3;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SaveAndLoad saveload = new SaveAndLoad("savedencryption.txt");
+            saveload.Save(cypherAnswer.Text); 
         }
     }
 }
