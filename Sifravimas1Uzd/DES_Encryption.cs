@@ -122,6 +122,7 @@ namespace Sifravimas1Uzd
 
             byteHash = hashMD5Provider.ComputeHash(Encoding.UTF8.GetBytes(password));
             desCryptoProvider.Key = byteHash;
+            desCryptoProvider.IV = UTF8Encoding.UTF8.GetBytes("ABCDEFGH");
             if (choice == 1)
             {
                 desCryptoProvider.Mode = CipherMode.ECB;
@@ -140,11 +141,56 @@ namespace Sifravimas1Uzd
                 Convert.ToBase64String(desCryptoProvider.CreateEncryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
             return encoded;
         }
+
         public int byteSize(string input, Encoding encoding)
         {
             byte[] bytes = encoding.GetBytes(input);
 
             return bytes.Length;
+        }
+        public string Decrypt(string TextToDecrypt, string password, int choice)
+        {
+            byte[] MyDecryptArray = Convert.FromBase64String
+               (TextToDecrypt);
+
+            MD5CryptoServiceProvider MyMD5CryptoService = new
+               MD5CryptoServiceProvider();
+
+            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash
+               (UTF8Encoding.UTF8.GetBytes(password));
+
+            MyMD5CryptoService.Clear();
+
+            var MyTripleDESCryptoService = new
+               TripleDESCryptoServiceProvider();
+
+            MyTripleDESCryptoService.Key = MysecurityKeyArray;
+            MyTripleDESCryptoService.IV = UTF8Encoding.UTF8.GetBytes("ABCDEFGH");
+            if (choice == 1)
+            {
+                MyTripleDESCryptoService.Mode = CipherMode.ECB;
+            }
+            else if (choice == 2)
+            {
+                MyTripleDESCryptoService.Mode = CipherMode.CBC;
+            }
+            else
+            {
+                MyTripleDESCryptoService.Mode = CipherMode.CFB;
+            }
+
+            MyTripleDESCryptoService.Padding = PaddingMode.PKCS7;
+
+            var MyCrytpoTransform = MyTripleDESCryptoService
+               .CreateDecryptor();
+
+            byte[] MyresultArray = MyCrytpoTransform
+               .TransformFinalBlock(MyDecryptArray, 0,
+               MyDecryptArray.Length);
+
+            MyTripleDESCryptoService.Clear();
+
+            return UTF8Encoding.UTF8.GetString(MyresultArray);
         }
 
     }

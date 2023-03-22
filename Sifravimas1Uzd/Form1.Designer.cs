@@ -37,9 +37,7 @@
             this.decypherAnswer = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CypherBox
@@ -52,7 +50,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(273, 289);
+            this.button1.Location = new System.Drawing.Point(271, 128);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
@@ -62,7 +60,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(449, 289);
+            this.button2.Location = new System.Drawing.Point(490, 128);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -76,6 +74,7 @@
             this.KeyBox.Name = "KeyBox";
             this.KeyBox.Size = new System.Drawing.Size(175, 20);
             this.KeyBox.TabIndex = 8;
+            this.KeyBox.TextChanged += new System.EventHandler(this.KeyBox_TextChanged);
             // 
             // label1
             // 
@@ -89,7 +88,7 @@
             // cypherAnswer
             // 
             this.cypherAnswer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cypherAnswer.Location = new System.Drawing.Point(224, 318);
+            this.cypherAnswer.Location = new System.Drawing.Point(218, 169);
             this.cypherAnswer.Name = "cypherAnswer";
             this.cypherAnswer.ReadOnly = true;
             this.cypherAnswer.Size = new System.Drawing.Size(175, 13);
@@ -99,7 +98,7 @@
             // decypherAnswer
             // 
             this.decypherAnswer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.decypherAnswer.Location = new System.Drawing.Point(405, 318);
+            this.decypherAnswer.Location = new System.Drawing.Point(478, 169);
             this.decypherAnswer.Name = "decypherAnswer";
             this.decypherAnswer.ReadOnly = true;
             this.decypherAnswer.Size = new System.Drawing.Size(175, 13);
@@ -107,7 +106,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(519, 12);
+            this.button3.Location = new System.Drawing.Point(218, 10);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 12;
@@ -117,7 +116,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(600, 12);
+            this.button4.Location = new System.Drawing.Point(299, 10);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 13;
@@ -125,19 +124,9 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(622, 425);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(167, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "DES encryption by Nicolas Einoris";
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
-            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(681, 12);
+            this.button5.Location = new System.Drawing.Point(380, 10);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 15;
@@ -145,24 +134,12 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(25, 415);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 16;
-            this.button6.Text = "Save";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.decypherAnswer);
@@ -191,9 +168,7 @@
         private System.Windows.Forms.TextBox decypherAnswer;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
     }
 }
 

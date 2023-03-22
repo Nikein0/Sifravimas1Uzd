@@ -121,36 +121,14 @@ namespace Sifravimas1Uzd
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(cypherAnswer.Text) && !String.IsNullOrEmpty(KeyBox.Text)) { 
-            /*
-                string output = string.Empty;
-                int nonAlphaCharCount = 0;
-                for (int i = 0; i < cypherAnswer.Text.Length; ++i)
-                {
-                    if (char.IsLetter(cypherAnswer.Text[i]))
-                    {
-                        bool cIsUpper = char.IsUpper(cypherAnswer.Text[i]);
-                        char offset = cIsUpper ? 'A' : 'a';
-
-                        int keyIndex = (i - nonAlphaCharCount) % KeyBox.Text.Length;
-                        int k = (cIsUpper ? char.ToUpper(KeyBox.Text[keyIndex]) : char.ToLower(KeyBox.Text[keyIndex])) - offset;
-
-                        k = encipher ? k : -k;
-                        char ch = (char)((Mod(((cypherAnswer.Text[i] + k) - offset), 26)) + offset);
-
-                        output += ch;
-
-                    }
-                    else
-                    {
-                        output += cypherAnswer.Text[i];
-                        ++nonAlphaCharCount;
-                    }
-            */
-                }
-                //decypherAnswer.Text = output;        
+            if (!String.IsNullOrEmpty(CypherBox.Text) && !String.IsNullOrEmpty(KeyBox.Text))
+            { 
+                DES_Encryption dES_CBCEncryption = new DES_Encryption(CypherBox.Text, KeyBox.Text);
+                
+                
+                decypherAnswer.Text = dES_CBCEncryption.Decrypt(CypherBox.Text, KeyBox.Text, choice);
+            }
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -190,6 +168,11 @@ namespace Sifravimas1Uzd
         {
             SaveAndLoad saveload = new SaveAndLoad("savedencryption.txt");
             saveload.Save(cypherAnswer.Text); 
+        }
+
+        private void KeyBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

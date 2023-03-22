@@ -10,7 +10,7 @@ namespace Sifravimas1Uzd
     internal class SaveAndLoad
     {
         private static string Filename;
-        private string path = "C:\\Users\\Niko\\source\\repos\\Sifravimas1Uzd\\Sifravimas1Uzd\\file.txt";
+        private string path = "C:\\Users\\t430\\source\\repos\\Sifravimas1Uzd\\Sifravimas1Uzd\\file.txt";
 
 
         public SaveAndLoad(string filename) {
